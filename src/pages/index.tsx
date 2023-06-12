@@ -13,29 +13,24 @@ const Home = () => {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
+  /*checkDirectionではその方向の先にturnColor色の石があるかを探す*/
+  const checkDirection = (x: number, y: number, dx: number, dy: number) => {
+    let newX = x + dx;
+    let newY = y + dy;
+    let count = 0;
+    while (board[newY] !== undefined && board[newY][newX] === 3 - turnColor) {
+      newX += dx;
+      newY += dy;
+      count++;
+    }
+    let checker = false;
+    if (board[newY] !== undefined && board[newY][newX] === turnColor && count !== 0) {
+      checker = true;
+    }
+    return checker;
+  };
   const onClick = (x: number, y: number) => {
-    console.log(x, y);
     const newBoard: number[][] = JSON.parse(JSON.stringify(board));
-    if (
-      board[y + 1] !== undefined &&
-      board[y + 2] !== undefined &&
-      board[y + 1][x] === 3 - turnColor &&
-      board[y + 2][x] === turnColor
-    ) {
-      newBoard[y][x] = turnColor;
-      newBoard[y + 1][x] = turnColor;
-      setTurnColor(3 - turnColor);
-    }
-    if (
-      board[y - 1] !== undefined &&
-      board[y - 2] !== undefined &&
-      board[y - 1][x] === 3 - turnColor &&
-      board[y - 2][x] === turnColor
-    ) {
-      newBoard[y][x] = turnColor;
-      newBoard[y - 1][x] = turnColor;
-      setTurnColor(3 - turnColor);
-    }
     const directions = [
       [1, 0],
       [1, 1],
@@ -46,8 +41,34 @@ const Home = () => {
       [0, -1],
       [1, -1],
     ];
-
-    setBoard(newBoard);
+    let validMove = false;
+    for (let num = 0; num < 8; num++) {
+      const direction = directions[num];
+      if (board[y][x] !== 0) {
+        break;
+      }
+      if (checkDirection(x, y, direction[0], direction[1])) {
+        validMove = true;
+        let newY = y + direction[1];
+        let newX = x + direction[0];
+        console.log(y, x);
+        while (board[newY] !== undefined && board[newY][newX] === 3 - turnColor) {
+          newBoard[newY][newX] = turnColor;
+          setBoard(newBoard);
+          newY += direction[1];
+          newX += direction[0];
+          console.log('e');
+        }
+      }
+      /*newYについてのみundefinedを確かめるのは、newXがnewYの配列にあるからで
+        、newYがそもそもundefinedであれば newXもundefinedになる*/
+    }
+    if (validMove) {
+      newBoard[y][x] = turnColor;
+      setBoard(newBoard);
+      setTurnColor(3 - turnColor);
+    }
+    console.log('end');
   };
   return (
     <div className={styles.container}>
