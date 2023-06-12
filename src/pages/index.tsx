@@ -29,7 +29,6 @@ const Home = () => {
     }
     return checker;
   };
-
   const onClick = (x: number, y: number) => {
     const newBoard: number[][] = JSON.parse(JSON.stringify(board));
     const directions = [
@@ -63,7 +62,6 @@ const Home = () => {
       /*newYについてのみundefinedを確かめるのは、newXがnewYの配列にあるからで
         、newYがそもそもundefinedであれば newXもundefinedになる*/
     }
-
     if (validMove) {
       newBoard[y][x] = turnColor;
       setBoard(newBoard);
