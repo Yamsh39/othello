@@ -18,7 +18,7 @@ const Home = () => {
     let newX = x + dx;
     let newY = y + dy;
     let count = 0;
-    while (board[newY] !== undefined && board[newY][newX] === 3 - turnColor) {
+    while (board[newY][newX] !== undefined && board[newY][newX] === 3 - turnColor) {
       newX += dx;
       newY += dy;
       count++;
@@ -29,6 +29,7 @@ const Home = () => {
     }
     return checker;
   };
+
   const onClick = (x: number, y: number) => {
     const newBoard: number[][] = JSON.parse(JSON.stringify(board));
     const directions = [
@@ -57,18 +58,17 @@ const Home = () => {
           setBoard(newBoard);
           newY += direction[1];
           newX += direction[0];
-          console.log('e');
         }
       }
       /*newYについてのみundefinedを確かめるのは、newXがnewYの配列にあるからで
         、newYがそもそもundefinedであれば newXもundefinedになる*/
     }
+
     if (validMove) {
       newBoard[y][x] = turnColor;
       setBoard(newBoard);
       setTurnColor(3 - turnColor);
     }
-    console.log('end');
   };
   return (
     <div className={styles.container}>
