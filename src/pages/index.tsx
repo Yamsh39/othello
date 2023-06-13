@@ -14,11 +14,15 @@ const Home = () => {
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   //checkDirectionではその方向の先にturnColor色の石があるかを探す.
+  //board[newY][newX]!==undefinedはエラーになる
+  //board[newY]!==undefined && board[newX]!==undefinedとしなければならない
+  // newYについてのみundefinedを確かめるのは、newXがnewYの配列にあるからで
+  // newYがそもそもundefinedであれば newXもundefinedになる
   const checkDirection = (x: number, y: number, dx: number, dy: number) => {
     let newX = x + dx;
     let newY = y + dy;
     let count = 0;
-    while (board[newY][newX] !== undefined && board[newY][newX] === 3 - turnColor) {
+    while (board[newY] !== undefined && board[newY][newX] === 3 - turnColor) {
       newX += dx;
       newY += dy;
       count++;
@@ -59,8 +63,6 @@ const Home = () => {
           newX += direction[0];
         }
       }
-      // newYについてのみundefinedを確かめるのは、newXがnewYの配列にあるからで
-      // newYがそもそもundefinedであれば newXもundefinedになる
     }
     if (validMove) {
       newBoard[y][x] = turnColor;
