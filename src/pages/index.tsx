@@ -7,8 +7,8 @@ const Home = () => {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 2, 0, 0, 0],
     [0, 0, 0, 2, 1, 0, 0, 0],
+    [0, 0, 0, 1, 2, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
@@ -48,9 +48,6 @@ const Home = () => {
     let validMove = false;
     for (let num = 0; num < 8; num++) {
       const direction = directions[num];
-      if (board[y][x] !== 0) {
-        break;
-      }
       if (checkDirection(x, y, direction[0], direction[1])) {
         validMove = true;
         let newY = y + direction[1];
