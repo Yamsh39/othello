@@ -68,7 +68,7 @@ const Home = () => {
       <div className={styles.board}>
         {board.map((row, y) =>
           row.map((color, x) => (
-            <Cell key={`${x}-${y}`} x={x} y={y} color={color} onClick={() => onClick(x, y)} />
+            <Cell key={`${x}-${y}`} color={color} onClick={() => onClick(x, y)} />
           ))
         )}
       </div>
