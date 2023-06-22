@@ -1,0 +1,15 @@
+.cell {
+  border: solid 1px black;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stone {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: white;
+}

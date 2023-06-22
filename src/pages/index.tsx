@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Cell } from '../components/Cell';
 import styles from './index.module.css';
 
 const Home = () => {
@@ -13,11 +14,6 @@ const Home = () => {
     [0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0],
   ]);
-  //checkDirectionではその方向の先にturnColor色の石があるかを探す.
-  //board[newY][newX]!==undefinedはエラーになる
-  //board[newY]!==undefined && board[newX]!==undefinedとしなければならない
-  // newYについてのみundefinedを確かめるのは、newXがnewYの配列にあるからで
-  // newYがそもそもundefinedであれば newXもundefinedになる
   const checkDirection = (x: number, y: number, dx: number, dy: number) => {
     let newX = x + dx;
     let newY = y + dy;
@@ -72,14 +68,7 @@ const Home = () => {
       <div className={styles.board}>
         {board.map((row, y) =>
           row.map((color, x) => (
-            <div className={styles.cell} key={`${x}-${y}`} onClick={() => onClick(x, y)}>
-              {color !== 0 && (
-                <div
-                  className={styles.stone}
-                  style={{ background: color === 1 ? '#000' : '#fff' }}
-                />
-              )}
-            </div>
+            <Cell key={`${x}-${y}`} x={x} y={y} color={color} onClick={() => onClick(x, y)} />
           ))
         )}
       </div>
